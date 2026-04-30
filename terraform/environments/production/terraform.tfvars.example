@@ -1,0 +1,10 @@
+# Copy to terraform.tfvars (gitignored) and fill in.
+#
+# Bootstrapping note: Salesforce only generates the real callback URL once the
+# Auth Provider has been created in Setup, but the Auth Provider can't be
+# created without the client_id/client_secret produced by the first apply.
+# Resolve the cycle by running the first apply with a placeholder value here,
+# creating the Salesforce Auth Provider with the resulting outputs, then
+# replacing this with the real callback URL and running apply a second time.
+
+salesforce_callback_url = "https://placeholder.invalid/services/authcallback/Microsoft"
