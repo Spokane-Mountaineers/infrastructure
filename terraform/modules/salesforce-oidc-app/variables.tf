@@ -13,8 +13,8 @@ variable "redirect_uris" {
   }
 }
 
-variable "client_secret_lifetime_hours" {
-  description = "Validity window for the client secret. Defaults to one year; rotate before expiry by tainting azuread_application_password.this."
+variable "client_secret_rotation_days" {
+  description = "How often the client secret rotates. On each apply after this period elapses, the secret is replaced automatically."
   type        = number
-  default     = 8760
+  default     = 365
 }

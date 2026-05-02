@@ -7,6 +7,10 @@ resource "azuread_application" "this" {
   # which lets any work, school, or personal Microsoft account complete sign-in.
   sign_in_audience = "AzureADandPersonalMicrosoftAccount"
 
+  api {
+    requested_access_token_version = 2
+  }
+
   web {
     redirect_uris = var.redirect_uris
 
@@ -59,8 +63,12 @@ resource "azuread_service_principal" "this" {
   client_id = azuread_application.this.client_id
 }
 
+resource "time_rotating" "client_secret" {
+  rotation_days = var.client_secret_rotation_days
+}
+
 resource "azuread_application_password" "this" {
-  application_id    = azuread_application.this.id
-  display_name      = "Salesforce OIDC client secret"
-  end_date_relative = "${var.client_secret_lifetime_hours}h"
+  application_id = azuread_application.this.id
+  display_name   = "Salesforce OIDC client secret"
+  end_date       = time_rotating.client_secret.rotation_rfc3339
 }
