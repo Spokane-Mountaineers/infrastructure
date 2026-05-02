@@ -7,4 +7,4 @@
 # creating the Salesforce Auth Provider with the resulting outputs, then
 # replacing this with the real callback URL and running apply a second time.
 
-salesforce_callback_url = "https://placeholder.invalid/services/authcallback/Microsoft"
+salesforce_callback_url = "https://spokanemountaineers--staging.sandbox.my.salesforce.com/services/authcallback/Microsoft"
