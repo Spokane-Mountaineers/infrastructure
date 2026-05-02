@@ -20,14 +20,16 @@
         {
           default = pkgs.mkShell {
             packages = [
-              pkgs.fish  # Added fish to the environment
+              pkgs.fish
+              pkgs.just
               pkgs.opentofu
               pkgs.google-cloud-sdk
               pkgs.azure-cli
             ];
 
-            # This runs when you run `nix develop`
             shellHook = ''
+              mkdir -p ~/.config/fish/completions
+              cp "${toString ./.}/completions/just.fish" ~/.config/fish/completions/just.fish
               exec fish
             '';
           };
