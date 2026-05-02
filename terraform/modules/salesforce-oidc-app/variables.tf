@@ -13,6 +13,12 @@ variable "redirect_uris" {
   }
 }
 
+variable "logo_image" {
+  description = "Base64-encoded logo image (png, gif, or jpeg) for the App Registration. Once set, can only be changed by replacing with another image."
+  type        = string
+  default     = null
+}
+
 variable "client_secret_rotation_days" {
   description = "How often the client secret rotates. On each apply after this period elapses, the secret is replaced automatically."
   type        = number

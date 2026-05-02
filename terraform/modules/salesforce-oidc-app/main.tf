@@ -2,6 +2,7 @@ data "azuread_client_config" "current" {}
 
 resource "azuread_application" "this" {
   display_name = var.display_name
+  logo_image   = var.logo_image
 
   # AzureADandPersonalMicrosoftAccount corresponds to the /common authority,
   # which lets any work, school, or personal Microsoft account complete sign-in.
