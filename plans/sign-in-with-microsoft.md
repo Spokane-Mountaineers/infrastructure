@@ -16,7 +16,7 @@ The Azure side — the Microsoft Entra App Registrations that issue tokens to Sa
 | GCS auth | gcloud Application Default Credentials (`gcloud auth application-default login`) |
 | Tenant audience | `AzureADandPersonalMicrosoftAccount` (matches the `/common` authority) |
 | Topology | Two App Registrations — one per Salesforce environment (`staging`, `production`) |
-| Provider versions | `hashicorp/azuread ~> 3.0` |
+| Provider versions | `hashicorp/azuread ~> 3.0`, `hashicorp/time ~> 0.9` |
 
 ## Files in this repo (after this change)
 
@@ -57,9 +57,10 @@ Reusable wrapper around an Entra App Registration intended for Salesforce OpenID
 
 - `azuread_application.this` — display name, `sign_in_audience = "AzureADandPersonalMicrosoftAccount"`, `web.redirect_uris`, `web.implicit_grant` disabled (auth-code flow), Microsoft Graph delegated permissions for `openid`, `profile`, `email`, `User.Read`, optional `email` claim added to ID and access tokens.
 - `azuread_service_principal.this` — required for the app to be usable in the home tenant.
-- `azuread_application_password.this` — client secret with one-year `end_date_relative`. Rotate by tainting and re-applying.
+- `time_rotating.client_secret` — drives secret expiry; when the rotation period elapses the next plan recreates the password automatically.
+- `azuread_application_password.this` — client secret; `end_date` is set to `time_rotating.client_secret.rotation_rfc3339`.
 
-Inputs: `display_name`, `redirect_uris` (list, validated non-empty), `client_secret_lifetime_hours` (default 8760).
+Inputs: `display_name`, `redirect_uris` (list, validated non-empty), `client_secret_rotation_days` (default 365).
 Outputs: `client_id`, `client_secret` (sensitive), `tenant_id`, `object_id`.
 
 ## Apply order (handles the Salesforce ↔ Azure circular dependency)
@@ -77,7 +78,7 @@ The Salesforce Auth Provider can't be created until the Entra app exists, and th
    tofu fmt -check -recursive
    cd terraform/environments/staging && tofu init && tofu validate
    ```
-2. **Plan should show**: 1 `azuread_application`, 1 `azuread_service_principal`, 1 `azuread_application_password` (no other resources).
+2. **Plan should show**: 1 `azuread_application`, 1 `azuread_service_principal`, 1 `time_rotating`, 1 `azuread_application_password` (no other resources).
 3. **First apply** (placeholder URL):
    ```bash
    tofu apply -var-file=terraform.tfvars
