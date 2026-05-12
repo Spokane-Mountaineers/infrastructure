@@ -3,7 +3,7 @@ data "azurerm_subscription" "current" {}
 # Fires at $1 of actual spend — effectively "anything was billed."
 resource "azurerm_consumption_budget_subscription" "canary" {
   name            = "canary-any-billing"
-  subscription_id = data.azurerm_subscription.current.subscription_id
+  subscription_id = data.azurerm_subscription.current.id
   amount          = 1
   time_grain      = "Monthly"
 
@@ -23,7 +23,7 @@ resource "azurerm_consumption_budget_subscription" "canary" {
 # Escalating alerts against the monthly slice of the $2,000 annual nonprofit grant.
 resource "azurerm_consumption_budget_subscription" "grant" {
   name            = "monthly-grant-budget"
-  subscription_id = data.azurerm_subscription.current.subscription_id
+  subscription_id = data.azurerm_subscription.current.id
   amount          = var.monthly_budget_usd
   time_grain      = "Monthly"
 
