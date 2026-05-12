@@ -1,0 +1,9 @@
+# Copy to terraform.tfvars (gitignored) and fill in.
+
+contact_emails = [
+  "admin@spokanemountaineers.org",
+  "board@spokanemountaineers.org",
+]
+
+# Optional: override the default monthly budget ($166.67, from the $2,000 annual nonprofit grant).
+# monthly_budget_usd = 166.67
