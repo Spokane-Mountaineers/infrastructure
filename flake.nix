@@ -30,7 +30,6 @@
             shellHook = ''
               mkdir -p ~/.config/fish/completions
               cp "${toString ./.}/completions/just.fish" ~/.config/fish/completions/just.fish
-              exec fish
             '';
           };
         }
