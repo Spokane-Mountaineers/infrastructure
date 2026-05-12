@@ -1,0 +1,18 @@
+# Copy to terraform.tfvars (gitignored) and fill in.
+#
+# billing_account_id: GCP Console > Billing > Account Management > Account ID
+# project_id:         the GCP project where Cloud Monitoring channels are created
+#
+# Expected monthly bill is $0 (free tier). The ceiling budget exists to catch
+# surprise charges, not track a grant allocation.
+
+billing_account_id = "XXXXXX-XXXXXX-XXXXXX"
+project_id         = "terraform-471204"
+
+contact_emails = [
+  "admin@spokanemountaineers.org",
+  "board@spokanemountaineers.org",
+]
+
+# Optional: override the default $10/month ceiling.
+# monthly_ceiling_usd = 10

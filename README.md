@@ -17,7 +17,8 @@ OpenTofu-managed infrastructure for the Spokane Mountaineers organization. State
     └── stacks/
         ├── staging/             # staging Salesforce org integrations
         ├── production/          # production Salesforce org integrations
-        └── azure-billing/       # Azure subscription budget alerts
+        ├── azure-billing/       # Azure subscription budget alerts
+        └── gcloud-billing/      # GCP billing account budget alerts
 ```
 
 ## Tooling
