@@ -76,7 +76,7 @@ az account show          # verify you're in the expected tenant
 Pick any environment directory and run `tofu init`:
 
 ```bash
-cd terraform/environments/staging
+cd terraform/stacks/staging
 tofu init
 ```
 

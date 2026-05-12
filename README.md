@@ -14,9 +14,10 @@ OpenTofu-managed infrastructure for the Spokane Mountaineers organization. State
 └── terraform/
     ├── modules/                 # reusable building blocks
     │   └── salesforce-oidc-app/ # Microsoft Entra App Registration for Salesforce sign-in
-    └── environments/
+    └── stacks/
         ├── staging/             # staging Salesforce org integrations
-        └── production/          # production Salesforce org integrations
+        ├── production/          # production Salesforce org integrations
+        └── azure-billing/       # Azure subscription budget alerts
 ```
 
 ## Tooling
@@ -33,7 +34,7 @@ After completing the one-time bootstrap (see `docs/bootstrap.md`):
 
 ```bash
 nix develop
-cd terraform/environments/staging
+cd terraform/stacks/staging
 tofu init
 tofu plan -var-file=terraform.tfvars
 tofu apply -var-file=terraform.tfvars
@@ -41,8 +42,8 @@ tofu apply -var-file=terraform.tfvars
 
 ## Conventions
 
-- Each environment directory is a standalone OpenTofu root module with its own state file.
-- Modules under `terraform/modules/` are reusable; environments compose them.
+- Each stack under `terraform/stacks/` is a standalone OpenTofu root module with its own state file.
+- Modules under `terraform/modules/` are reusable; stacks compose them.
 - `*.tfvars` files contain environment-specific values and are gitignored. Each environment ships a `terraform.tfvars.example`.
 - Significant changes ship with a planning doc under `plans/`.
 

@@ -38,7 +38,7 @@ The Azure side — the Microsoft Entra App Registrations that issue tokens to Sa
     │       ├── variables.tf                          # display_name, redirect_uris, client_secret_lifetime_hours
     │       ├── outputs.tf                            # client_id, client_secret (sensitive), tenant_id, object_id
     │       └── versions.tf                           # OpenTofu 1.11.6, azuread ~> 3.0
-    └── environments/
+    └── stacks/
         ├── staging/
         │   ├── backend.tf                            # gcs, key=sign-in-with-microsoft/staging
         │   ├── providers.tf                          # provider "azuread" {}
@@ -76,7 +76,7 @@ The Salesforce Auth Provider can't be created until the Entra app exists, and th
 1. **Format / validate**:
    ```bash
    tofu fmt -check -recursive
-   cd terraform/environments/staging && tofu init && tofu validate
+   cd terraform/stacks/staging && tofu init && tofu validate
    ```
 2. **Plan should show**: 1 `azuread_application`, 1 `azuread_service_principal`, 1 `time_rotating`, 1 `azuread_application_password` (no other resources).
 3. **First apply** (placeholder URL):

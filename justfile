@@ -1,4 +1,4 @@
-env_dir := "terraform/environments"
+env_dir := "terraform/stacks"
 
 # List available recipes
 default:

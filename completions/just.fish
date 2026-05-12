@@ -1,18 +1,18 @@
-# List environment directories under terraform/environments/
+# List stack directories under terraform/stacks/
 function __just_list_envs
     set -l root (git rev-parse --show-toplevel 2>/dev/null)
     or return
-    for d in $root/terraform/environments/*/
+    for d in $root/terraform/stacks/*/
         basename $d
     end
 end
 
-# List output names for a given environment by parsing its outputs.tf
+# List output names for a given stack by parsing its outputs.tf
 function __just_list_outputs
     set -l env $argv[1]
     set -l root (git rev-parse --show-toplevel 2>/dev/null)
     or return
-    set -l f $root/terraform/environments/$env/outputs.tf
+    set -l f $root/terraform/stacks/$env/outputs.tf
     test -f $f || return
     grep '^output "' $f | string replace -r '^output "([^"]+)".*' '$1'
 end
